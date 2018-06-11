@@ -6,7 +6,14 @@
 	<groupId>br.com.iftm</groupId>
 	<artifactId>account-manager-2018</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<modules>
+		<module>model</module>
+		<module>repository</module>
+		<module>web-client</module>
+		<module>web-server</module>
+		<module>db-server</module>
+	</modules>
+	<packaging>pom</packaging>
 
 	<name>account-manager-2018</name>
 	<description>Demo project for Spring Boot</description>
@@ -26,10 +33,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
