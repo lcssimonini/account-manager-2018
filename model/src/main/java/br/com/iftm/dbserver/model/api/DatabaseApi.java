@@ -1,4 +1,4 @@
-package br.com.iftm.dbserver.api;
+package br.com.iftm.dbserver.model.api;
 
 import br.com.iftm.dbserver.model.Account;
 import org.springframework.web.bind.annotation.GetMapping;
