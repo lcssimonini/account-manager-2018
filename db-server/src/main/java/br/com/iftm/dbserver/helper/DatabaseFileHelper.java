@@ -12,11 +12,13 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.nio.file.Files.readAllLines;
+import static java.util.Comparator.comparing;
 
 @Slf4j
 public class DatabaseFileHelper {
@@ -28,43 +30,52 @@ public class DatabaseFileHelper {
         this.path = path;
     }
 
-    public Account getAccount(Integer id) throws IOException {
-        return getAccountStream()
-                .filter(a -> id.equals(a.getId()))
-                .collect(Collectors.toList()).get(0);
+    public Account getAccount(Integer id) {
+        Account account = null;
+        try {
+            account = getAccountStream()
+                    .filter(a -> id.equals(a.getId()))
+                    .collect(Collectors.toList()).get(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return account;
     }
 
-    public void writeAccount(Account account) throws IOException {
-        List<Account> accounts = getAccountStream()
-                .collect(Collectors.toList());
+    public void writeAccount(Account account) {
+        try {
+            List<Account> accounts = getAccountStream()
+                    .collect(Collectors.toList());
 
-        accounts.removeIf(a -> a.getId().equals(account.getId()));
-        accounts.add(account);
+            accounts.removeIf(a -> a.getId().equals(account.getId()));
+            accounts.add(account);
+            accounts.sort(comparing(Account::getId));
 
-        clearFile();
-        writeAccounts(accounts);
+            clearFile();
+            writeAccounts(accounts);
+        } catch (Exception ignored){}
     }
 
-    public void writeAccounts(List<Account> accounts) throws IOException {
+    private void writeAccounts(List<Account> accounts) throws IOException {
         Files.write(path, accounts.stream()
                 .map(this::toJson)
                 .collect(Collectors.toList()));
     }
 
-    public Stream<Account> getAccountStream() throws IOException {
+    private Stream<Account> getAccountStream() throws IOException {
         return readAllLines(path).stream()
                 .map(this::fromString);
     }
 
-    public Account fromString(String account) {
+    private Account fromString(String account) {
         return gson.fromJson(account, Account.class);
     }
 
-    public String toJson(Account account) {
+    private String toJson(Account account) {
         return gson.toJson(account);
     }
 
-    public void clearFile() throws FileNotFoundException {
+    private void clearFile() throws FileNotFoundException {
         PrintWriter writer = new PrintWriter(new File(String.valueOf(path)));
         writer.print("");
         writer.close();

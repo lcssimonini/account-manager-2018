@@ -14,12 +14,12 @@ public class DatabaseController implements DatabaseApi {
     private DatabaseService service;
 
     @Override
-    public Account deposit(@PathVariable("id") Integer id, @PathVariable("ammount") Long ammount) {
+    public Account deposit(@PathVariable("id") Integer id, @PathVariable("ammount") Double ammount) {
         return service.deposit(id, ammount);
     }
 
     @Override
-    public Account withdraw(@PathVariable("id") Integer id, @PathVariable("ammount") Long ammount) {
+    public Account withdraw(@PathVariable("id") Integer id, @PathVariable("ammount") Double ammount) {
         return service.withdraw(id, ammount);
     }
 

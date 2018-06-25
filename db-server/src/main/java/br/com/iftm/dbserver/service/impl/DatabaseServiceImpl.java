@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -25,7 +26,6 @@ public class DatabaseServiceImpl implements DatabaseService {
         File databaseFile = new File(FILE_PATH);
         boolean isCreated = false;
         try {
-            databaseFile.delete();
             isCreated = databaseFile.createNewFile();
             helper = new DatabaseFileHelper(path);
         } catch (IOException ignored) {}
@@ -36,23 +36,29 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Account deposit(Integer id, Long ammount) {
-        return null;
+    public Account deposit(Integer id, Double ammount) {
+        Account account = helper.getAccount(id);
+        Account updatedAccount = Optional.ofNullable(account)
+                .map(a -> a.deposit(ammount))
+                .orElse(account);
+
+        helper.writeAccount(updatedAccount);
+        return updatedAccount;
     }
 
     @Override
-    public Account withdraw(Integer id, Long ammount) {
-        return null;
+    public Account withdraw(Integer id, Double ammount) {
+        Account account = helper.getAccount(id);
+        Account updatedAccount = Optional.ofNullable(account)
+                .map(a -> a.withdraw(ammount))
+                .orElse(account);
+
+        helper.writeAccount(updatedAccount);
+        return updatedAccount;
     }
 
     @Override
     public Account balance(Integer id) {
-        Account account = null;
-        try {
-            account = helper.getAccount(id);
-        } catch (IOException e) {
-            log.error("account does not exist", e);
-        }
-        return account;
+        return helper.getAccount(id);
     }
 }
