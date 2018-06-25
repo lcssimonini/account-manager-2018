@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 public interface DatabaseApi {
 
-    @PostMapping(value = "/{id}/deposit/{ammount}")
+    @PostMapping(value = "/deposit/{id}/{ammount}")
     Account deposit(@PathVariable("id") Integer id, @PathVariable("ammount") Long ammount);
 
-    @PostMapping(value = "/{id}/withdraw/{ammount}")
+    @PostMapping(value = "/withdraw/{id}/{ammount}")
     Account withdraw(@PathVariable("id") Integer id, @PathVariable("ammount") Long ammount);
 
-    @GetMapping(value = "/{id}/balance")
+    @GetMapping(value = "/balance/{id}")
     Account balance(@PathVariable("id") Integer id);
 }

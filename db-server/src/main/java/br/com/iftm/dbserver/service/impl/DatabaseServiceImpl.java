@@ -25,10 +25,11 @@ public class DatabaseServiceImpl implements DatabaseService {
         File databaseFile = new File(FILE_PATH);
         boolean isCreated = false;
         try {
+            databaseFile.delete();
             isCreated = databaseFile.createNewFile();
+            helper = new DatabaseFileHelper(path);
         } catch (IOException ignored) {}
         if (isCreated) {
-            helper = new DatabaseFileHelper(path);
             helper.initializeRandomAccounts();
             log.debug("database created successfully");
         }
@@ -54,4 +55,4 @@ public class DatabaseServiceImpl implements DatabaseService {
         }
         return account;
     }
- }
+}
