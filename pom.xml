@@ -29,6 +29,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Finchley.RC2</spring-cloud.version>
+		<feign.version>8.16.2</feign.version>
 	</properties>
 
 	<dependencyManagement>
@@ -58,11 +59,10 @@
 			</dependency>
 
 			<dependency>
-				<groupId>io.github.openfeign</groupId>
-				<artifactId>feign-gson</artifactId>
-				<version>9.7.0</version>
+				<groupId>com.mashape.unirest</groupId>
+				<artifactId>unirest-java</artifactId>
+				<version>1.4.9</version>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 

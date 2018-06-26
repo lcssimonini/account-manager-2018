@@ -1,5 +1,6 @@
 package br.com.ifrm.webclient.service.impl;
 
+import br.com.ifrm.webclient.client.PerformOperationsClient;
 import br.com.ifrm.webclient.service.OperationsService;
 import br.com.iftm.dbserver.model.BankOperationTO;
 import br.com.iftm.dbserver.model.BankOperationsListTO;
@@ -16,17 +17,17 @@ import static br.com.iftm.dbserver.model.BankOperation.getRandomOperation;
 public class OperationsServiceImpl implements OperationsService {
 
     @Autowired
-    private PerformOperationsApi performOperationsApi;
+    private PerformOperationsClient client;
 
     @Override
     public void performOperations(Integer qtd) {
-        performOperationsApi.performOperations(createRandomOperations(qtd));
+        client.callOperationsServer(createRandomOperations(qtd));
     }
 
     private BankOperationsListTO createRandomOperations(Integer qtd) {
         BankOperationsListTO operationList = BankOperationsListTO.builder().build();
 
-        for (int i = 0; i <= qtd; i++) {
+        for (int i = 0; i < qtd; i++) {
             operationList.addOperation(BankOperationTO.builder()
                     .operation(getRandomOperation())
                     .originAccountId(getRandomAccountId())
