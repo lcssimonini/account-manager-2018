@@ -1,11 +1,12 @@
 package br.com.iftm.dbserver.model.api;
 
 import br.com.iftm.dbserver.model.BankOperationsListTO;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface PerformOperationsApi {
 
-    @PostMapping(value = "/perform")
-    void createOperations(@RequestBody BankOperationsListTO operationsListTO);
+    @RequestMapping(value = "/perform", method = RequestMethod.POST)
+    void performOperations(@RequestBody BankOperationsListTO operationsListTO);
 }

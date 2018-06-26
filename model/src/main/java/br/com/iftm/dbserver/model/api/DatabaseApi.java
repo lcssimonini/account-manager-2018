@@ -1,18 +1,18 @@
 package br.com.iftm.dbserver.model.api;
 
 import br.com.iftm.dbserver.model.Account;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 public interface DatabaseApi {
 
-    @PostMapping(value = "/deposit/{id}/{ammount}")
+    @RequestMapping(value = "/deposit/{id}/{ammount}", method = RequestMethod.POST)
     Account deposit(@PathVariable("id") Integer id, @PathVariable("ammount") Double ammount);
 
-    @PostMapping(value = "/withdraw/{id}/{ammount}")
+    @RequestMapping(value = "/withdraw/{id}/{ammount}", method = RequestMethod.POST)
     Account withdraw(@PathVariable("id") Integer id, @PathVariable("ammount") Double ammount);
 
-    @GetMapping(value = "/balance/{id}")
+    @RequestMapping(value = "/balance/{id}", method = RequestMethod.GET)
     Account balance(@PathVariable("id") Integer id);
 }

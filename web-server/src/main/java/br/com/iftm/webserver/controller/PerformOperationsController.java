@@ -2,11 +2,13 @@ package br.com.iftm.webserver.controller;
 
 import br.com.iftm.dbserver.model.BankOperationsListTO;
 import br.com.iftm.dbserver.model.api.PerformOperationsApi;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class PerformOperationsController implements PerformOperationsApi {
 
     @Override
-    public void createOperations(BankOperationsListTO operationsListTO) {
-
+    public void performOperations(BankOperationsListTO operationsListTO) {
+        operationsListTO.getOperations().forEach(System.out::println);
     }
 }

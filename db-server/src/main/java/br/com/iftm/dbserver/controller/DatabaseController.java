@@ -1,7 +1,7 @@
 package br.com.iftm.dbserver.controller;
 
-import br.com.iftm.dbserver.model.api.DatabaseApi;
 import br.com.iftm.dbserver.model.Account;
+import br.com.iftm.dbserver.model.api.DatabaseApi;
 import br.com.iftm.dbserver.service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

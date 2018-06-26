@@ -3,16 +3,27 @@ package br.com.ifrm.webclient.service.impl;
 import br.com.ifrm.webclient.service.OperationsService;
 import br.com.iftm.dbserver.model.BankOperationTO;
 import br.com.iftm.dbserver.model.BankOperationsListTO;
+import br.com.iftm.dbserver.model.api.PerformOperationsApi;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.random.RandomDataGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static br.com.iftm.dbserver.model.BankOperation.getRandomOperation;
 
+@Slf4j
 @Service
 public class OperationsServiceImpl implements OperationsService {
 
+    @Autowired
+    private PerformOperationsApi performOperationsApi;
+
     @Override
-    public BankOperationsListTO createRandomOperations(Integer qtd) {
+    public void performOperations(Integer qtd) {
+        performOperationsApi.performOperations(createRandomOperations(qtd));
+    }
+
+    private BankOperationsListTO createRandomOperations(Integer qtd) {
         BankOperationsListTO operationList = BankOperationsListTO.builder().build();
 
         for (int i = 0; i <= qtd; i++) {
