@@ -25,10 +25,12 @@ public class PerformOperationsService {
 
         while(!operationQueue.isEmpty()) {
             BankOperationTO operation = operationQueue.poll();
+            log.debug("tentativa de realizar a operação {}", operation);
 
             if (lockAccountIds(operation)) {
                 new CallDatabaseThread(operation, lockedIds).start();
             } else {
+                log.debug("não foi possível adquirir o lock para a operação {}", operation);
                 operationQueue.add(operation);
             }
 
