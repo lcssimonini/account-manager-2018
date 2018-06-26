@@ -21,6 +21,8 @@ public class BankOperationTO {
     public void setDestinationAccountId(Integer accountId) {
         if (accountId.equals(originAccountId)) {
             destinationAccountId = accountId+1;
+        } else {
+            destinationAccountId = accountId;
         }
     }
 }
