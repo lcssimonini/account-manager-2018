@@ -9,6 +9,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static br.com.iftm.dbserver.model.BankOperation.DEPOSIT;
+import static br.com.iftm.dbserver.model.BankOperation.TRANSFER;
+import static br.com.iftm.dbserver.model.BankOperation.WITHDRAW;
 import static java.util.Arrays.asList;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -25,6 +28,18 @@ public class BankOperationTO {
     private Integer originAccountId;
     private Integer destinationAccountId;
     private Double ammount;
+
+    public boolean isDeposit() {
+        return DEPOSIT.equals(operation);
+    }
+
+    public boolean isWithdraw() {
+        return WITHDRAW.equals(operation);
+    }
+
+    public boolean isTransfer() {
+        return TRANSFER.equals(operation);
+    }
 
     public List<Integer> getOperationIds() {
         return Stream.of(originAccountId, destinationAccountId)

@@ -5,10 +5,15 @@ import br.com.iftm.webserver.client.DatabaseClient;
 
 public class Transfer implements Operationable {
 
-    private DatabaseClient client = new DatabaseClient();
+    private BankOperationTO operation;
+
+    public Transfer(BankOperationTO operation) {
+        this.operation = operation;
+    }
 
     @Override
-    public void operate(BankOperationTO operation) {
-
+    public void operate() {
+        DatabaseClient client = new DatabaseClient();
+        client.transfer(operation.getOriginAccountId(), operation.getDestinationAccountId(), operation.getAmmount());
     }
 }

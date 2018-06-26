@@ -5,10 +5,15 @@ import br.com.iftm.webserver.client.DatabaseClient;
 
 public class Withdraw implements Operationable {
 
-    private DatabaseClient client = new DatabaseClient();
+    private BankOperationTO operation;
+
+    public Withdraw(BankOperationTO operation) {
+        this.operation = operation;
+    }
 
     @Override
-    public void operate(BankOperationTO operation) {
-        client.callDatabase(operation.getOperation(), operation.getOriginAccountId(), operation.getAmmount());
+    public void operate() {
+        DatabaseClient client = new DatabaseClient();
+        client.withdraw(operation.getOriginAccountId(), operation.getAmmount());
     }
 }
