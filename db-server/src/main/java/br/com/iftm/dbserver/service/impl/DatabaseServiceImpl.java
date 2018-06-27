@@ -11,13 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
 @Service
 public class DatabaseServiceImpl implements DatabaseService {
 
-    private static final String FILE_PATH = "database";
+    private static final String FILE_PATH = "database" + new Date().getTime();
     private Path path = Paths.get(FILE_PATH);
     private DatabaseFileHelper helper;
 

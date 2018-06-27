@@ -23,9 +23,7 @@ public class Account {
     }
 
     public Account withdraw(Double ammount) {
-        if (this.balance - ammount >= 0) {
-            this.balance -= ammount;
-        }
+        this.balance -= ammount;
         return this;
     }
 }

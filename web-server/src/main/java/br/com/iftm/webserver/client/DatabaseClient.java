@@ -1,7 +1,9 @@
 package br.com.iftm.webserver.client;
 
+import br.com.iftm.dbserver.model.Account;
 import br.com.iftm.dbserver.model.BankOperation;
 import com.google.gson.Gson;
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -18,12 +20,14 @@ public class DatabaseClient {
     private static final String depositUrlTemplate = "/deposit/%s/%s";
     private static final String withdrawUrlTemplate = "/withdraw/%s/%s";
 
-    public void deposit(Integer id, Double ammount) {
-        callDatabase(DEPOSIT, id, ammount);
+    public Account deposit(Integer id, Double ammount) {
+
+        return callDatabase(DEPOSIT, id, ammount);
     }
 
-    public void withdraw(Integer id, Double ammount) {
-        callDatabase(WITHDRAW, id, ammount);
+    public Account withdraw(Integer id, Double ammount) {
+
+        return callDatabase(WITHDRAW, id, ammount);
     }
 
     public void transfer(Integer originId, Integer destinationId, Double ammount) {
@@ -31,12 +35,15 @@ public class DatabaseClient {
         deposit(destinationId, ammount);
     }
 
-    private void callDatabase(BankOperation operation, Integer id, Double ammount) {
+    private Account callDatabase(BankOperation operation, Integer id, Double ammount) {
+        HttpResponse<String> stringResponse = null;
         try {
-            Unirest.post(getFullUrlPath(operation, id, ammount)).asJson();
+            stringResponse = Unirest.post(getFullUrlPath(operation, id, ammount)).asString();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+
+        return gson.fromJson(stringResponse.getBody(), Account.class);
     }
 
     private String getFullUrlPath(BankOperation operation, Integer id, Double ammount) {
@@ -45,6 +52,10 @@ public class DatabaseClient {
     }
 
     private String resolveDatabaseUrl(Integer id) {
-        return id <= 99 ? DATABASE_01_URL : DATABASE_02_URL;
+        return DATABASE_01_URL;
     }
+
+//    private String resolveDatabaseUrl(Integer id) {
+//        return id <= 99 ? DATABASE_01_URL : DATABASE_02_URL;
+//    }
 }
