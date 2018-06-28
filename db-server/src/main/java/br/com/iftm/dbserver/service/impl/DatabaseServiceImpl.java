@@ -21,14 +21,15 @@ public class DatabaseServiceImpl implements DatabaseService {
     private static final String FILE_PATH = "database" + new Date().getTime();
     private Path path = Paths.get(FILE_PATH);
     private DatabaseFileHelper helper;
+    private File databaseFile;
 
     @PostConstruct
     public void prepareDatabase() {
-        File databaseFile = new File(FILE_PATH);
+        databaseFile = new File(FILE_PATH);
         boolean isCreated = false;
         try {
             isCreated = databaseFile.createNewFile();
-            helper = new DatabaseFileHelper(path);
+            helper = new DatabaseFileHelper(databaseFile);
         } catch (IOException ignored) {}
         if (isCreated) {
             helper.initializeRandomAccounts();
