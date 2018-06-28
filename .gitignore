@@ -24,6 +24,6 @@ target/
 /nbdist/
 /.nb-gradle/
 
-database
+database*
 
 *.class
