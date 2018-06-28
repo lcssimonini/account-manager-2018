@@ -3,7 +3,7 @@ package br.com.iftm.dbserver.service.impl;
 import br.com.iftm.dbserver.helper.DatabaseFileHelper;
 import br.com.iftm.dbserver.model.Account;
 import br.com.iftm.dbserver.service.DatabaseService;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -14,10 +14,10 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class DatabaseServiceImpl implements DatabaseService {
 
+    private static final Logger log = Logger.getLogger(DatabaseServiceImpl.class);
     private static final String FILE_PATH = "database" + new Date().getTime();
     private Path path = Paths.get(FILE_PATH);
     private DatabaseFileHelper helper;

@@ -7,7 +7,7 @@ public class Transfer implements Operationable {
 
     private BankOperationTO operation;
 
-    public Transfer(BankOperationTO operation) {
+    Transfer(BankOperationTO operation) {
         this.operation = operation;
     }
 

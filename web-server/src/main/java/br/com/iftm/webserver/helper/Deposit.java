@@ -7,7 +7,7 @@ public class Deposit implements Operationable {
 
     private BankOperationTO operation;
 
-    public Deposit(BankOperationTO operation) {
+    Deposit(BankOperationTO operation) {
         this.operation = operation;
     }
 

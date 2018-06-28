@@ -1,12 +1,15 @@
 package br.com.iftm.webserver.helper;
 
 import br.com.iftm.dbserver.model.BankOperationTO;
+import br.com.iftm.webserver.service.PerformOperationsService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 
 import java.util.Set;
 
-@Slf4j
 public class CallDatabaseThread extends Thread {
+
+    private static final Logger log = Logger.getLogger(CallDatabaseThread.class);
 
     private BankOperationTO operation;
     private Set<Integer> lockedIds;
@@ -18,7 +21,7 @@ public class CallDatabaseThread extends Thread {
 
     @Override
     public void run() {
-        log.debug("realizando a operação {}", operation);
+        log.debug(String.format("realizando a operação %s", operation));
         resolveOperation().operate();
         lockedIds.removeAll(operation.getOperationIds());
     }

@@ -4,15 +4,12 @@ import br.com.ifrm.webclient.client.PerformOperationsClient;
 import br.com.ifrm.webclient.service.OperationsService;
 import br.com.iftm.dbserver.model.BankOperationTO;
 import br.com.iftm.dbserver.model.BankOperationsListTO;
-import br.com.iftm.dbserver.model.api.PerformOperationsApi;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static br.com.iftm.dbserver.model.BankOperation.getRandomOperation;
 
-@Slf4j
 @Service
 public class OperationsServiceImpl implements OperationsService {
 
@@ -47,8 +44,7 @@ public class OperationsServiceImpl implements OperationsService {
 
     private Integer getRandomAccountId() {
         int leftLimit = 0;
-        int rightLimit = 99;
-//        int rightLimit = 199;
+        int rightLimit = 199;
         return new RandomDataGenerator().nextInt(leftLimit, rightLimit);
     }
 }

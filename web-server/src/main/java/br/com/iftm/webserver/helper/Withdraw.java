@@ -7,7 +7,7 @@ public class Withdraw implements Operationable {
 
     private BankOperationTO operation;
 
-    public Withdraw(BankOperationTO operation) {
+    Withdraw(BankOperationTO operation) {
         this.operation = operation;
     }
 
